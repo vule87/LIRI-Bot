@@ -43,8 +43,11 @@ function concerts(input) {
 
 // Spotify
 function spotify(input) {
+    if (!input){
+        input = "Ace of Base"
+    }
     var spotify = new Spotify(keys.spotify);
-    spotify.search({ type: 'track', query: input, limit: 1 }, function (err, data) {
+    spotify.search({ type: 'track', query: input}, function (err, data) {
         var items = data.tracks.items[0];
 
         if (err) {
@@ -60,11 +63,11 @@ function spotify(input) {
 
 function movie(input) {
     if (!input){
-        input = "Titanic"
+        input = "Mr. Nobody"
     }
 
-    var movieUrl = "http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy";
-
+    var movieUrl = "http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=" + keys.OMDB.id;
+    console.log(keys.OMDB.id)
     request(movieUrl, function (err, response, body) {
 
         if (!err && response.statusCode === 200) {
